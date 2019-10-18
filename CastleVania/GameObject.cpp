@@ -3,7 +3,6 @@
 
 
 #include "debug.h"
-#include "Textures.h"
 #include "Game.h"
 #include "GameObject.h"
 #include "Sprites.h"
@@ -127,7 +126,7 @@ void CGameObject::RenderBoundingBox()
 	rect.right = (int)r - (int)l;
 	rect.bottom = (int)b - (int)t;
 
-	CGame::GetInstance()->Draw(x, y, bbox, rect.left, rect.top, rect.right, rect.bottom, 32);
+	CGame::GetInstance()->Draw(x, y, bbox, rect.left, rect.top, rect.right, rect.bottom, 0);
 }
 
 void CGameObject::AddAnimation(int aniId)
@@ -140,4 +139,4 @@ void CGameObject::AddAnimation(int aniId)
 CGameObject::~CGameObject()
 {
 
-}
+} 

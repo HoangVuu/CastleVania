@@ -33,6 +33,24 @@
     <ClCompile Include="Sprites.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Ground.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Textures.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Simon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BigFire.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="debug.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -41,5 +59,73 @@
     <ClInclude Include="Sprites.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Ground.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Textures.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Simon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BigFire.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="debug.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Castlevania\0.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Castlevania\1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Castlevania\123.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Castlevania\2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Castlevania\13.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Castlevania\BIG_HEART.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Castlevania\BRICK1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Castlevania\KNIFE_ACTION.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Castlevania\Simon_right.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Castlevania\Simon_ver_editted.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Castlevania\ground.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Castlevania\lv1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Castlevania\stair_.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Castlevania\WHIP_VIP.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Castlevania\WHIP.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Castlevania\WHIP_left.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

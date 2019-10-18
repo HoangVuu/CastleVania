@@ -3,9 +3,8 @@
 #include <Windows.h>
 #include <d3dx9.h>
 #include <vector>
-
+#include "Textures.h"
 #include "Sprites.h"
-#include"ViewPort.h"
 
 
 using namespace std;
@@ -53,7 +52,7 @@ public:
 	vector<LPANIMATION> animations;
 
 public:
-	void SetPosition(float x, float y) { this->x = x, this->y = y; }
+	virtual void SetPosition(float x, float y) { this->x = x, this->y = y; }
 	void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
 	void GetPosition(float &x, float &y) { x = this->x; y = this->y; }
 	void GetSpeed(float &vx, float &vy) { vx = this->vx; vy = this->vy; }

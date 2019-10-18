@@ -1,2 +1,12 @@
 ﻿  main.cpp
-  CastleVania.vcxproj -> F:\Môn học UIT\Nhập môn Phát triển Game\CastleVania\Debug\CastleVania.exe
+  c:\program files (x86)\microsoft directx sdk (june 2010)\include\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+f:\môn học uit\nhập môn phát triển game\game\castlevania\castlevania\game.h(6): warning C4005: 'DIRECTINPUT_VERSION': macro redefinition
+  c:\program files (x86)\microsoft directx sdk (june 2010)\include\dinput.h(42): note: see previous definition of 'DIRECTINPUT_VERSION'
+f:\môn học uit\nhập môn phát triển game\game\castlevania\castlevania\main.cpp(48): warning C4005: 'SIMON_ANI_DIE': macro redefinition
+  f:\môn học uit\nhập môn phát triển game\game\castlevania\castlevania\main.cpp(38): note: see previous definition of 'SIMON_ANI_DIE'
+f:\môn học uit\nhập môn phát triển game\game\castlevania\castlevania\main.cpp(50): warning C4005: 'SIMON_ANI_DIE': macro redefinition
+  f:\môn học uit\nhập môn phát triển game\game\castlevania\castlevania\main.cpp(48): note: see previous definition of 'SIMON_ANI_DIE'
+f:\môn học uit\nhập môn phát triển game\game\castlevania\castlevania\main.cpp(362): warning C4018: '<': signed/unsigned mismatch
+f:\môn học uit\nhập môn phát triển game\game\castlevania\castlevania\main.cpp(367): warning C4018: '<': signed/unsigned mismatch
+f:\môn học uit\nhập môn phát triển game\game\castlevania\castlevania\main.cpp(396): warning C4018: '<': signed/unsigned mismatch
+  CastleVania.vcxproj -> F:\Môn học UIT\Nhập môn Phát triển Game\Game\CastleVania\Debug\CastleVania.exe

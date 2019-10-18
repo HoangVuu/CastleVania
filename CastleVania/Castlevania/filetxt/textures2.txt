@@ -1,0 +1,2 @@
+42 Castlevania\Bosses.png
+43 Castlevania\Bosses_right.png
