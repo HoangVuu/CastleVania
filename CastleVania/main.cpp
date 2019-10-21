@@ -4,7 +4,7 @@
 #include <d3d9.h>
 #include <d3dx9.h>
 
-
+#include"Map.h"
 #include "debug.h"
 #include "Game.h"
 #include "GameObject.h"
@@ -28,6 +28,7 @@
 #define SIMON_STATE_DIE				400
 #define SIMON_STATE_MOVE			500
 #define SIMON_STATE_HIT				600
+#define SIMON_STATE_SIT				700
 
 #define SIMON_ANI_BIG_IDLE_RIGHT		0
 #define SIMON_ANI_BIG_IDLE_LEFT			1
@@ -70,19 +71,22 @@
 #define MAX_FRAME_RATE 120
 
 #define ID_TEX_SIMON 0
-#define ID_TEX_LV1 10
+#define ID_TEX_LV1 2
 #define ID_TEX_LV1_2 15
-#define ID_TEX_BRICK 20
-#define ID_TEX_SIMON_2 30
-#define ID_TEX_FIRE 40
-#define ID_TEX_WHIP 50 
-
+#define ID_TEX_BRICK 3
+#define ID_TEX_SIMON_2 1
+#define ID_TEX_FIRE 4
+#define ID_TEX_WHIP 5
+#define ID_TEX_TILESET 6
 
 
 CGame *game;
 
 Simon * simon;
 
+Map *map;
+
+CSprite *sprite;
 
 vector<LPGAMEOBJECT> objects;
 
@@ -101,7 +105,7 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 	switch (KeyCode)
 	{
 	case DIK_SPACE:
-		simon->SetState(SIMON_STATE_JUMP);
+			simon->SetState(SIMON_STATE_JUMP);
 		break;
 	case DIK_B: // reset
 		simon->SetState(SIMON_STATE_IDLE);	
@@ -110,7 +114,7 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 		simon->SetSpeed(0, 0);
 		break;
 	case DIK_A:
-	simon->SetState(SIMON_STATE_HIT);
+		simon->SetState(SIMON_STATE_HIT);
 	break;
 	}
 }
@@ -125,10 +129,14 @@ void CSampleKeyHander::KeyState(BYTE *states)
 
 	if (simon->GetState() == SIMON_STATE_DIE) 
 		return;
-	if (game->IsKeyDown(DIK_RIGHT))
+	if (game->IsKeyDown(DIK_RIGHT)) 
 		simon->SetState(SIMON_STATE_WALKING_RIGHT);
-	else if (game->IsKeyDown(DIK_LEFT))
+	else if (game->IsKeyDown(DIK_LEFT)) 
 		simon->SetState(SIMON_STATE_WALKING_LEFT);
+	else if (game->IsKeyDown(DIK_DOWN))
+		simon->SetState(SIMON_STATE_SIT);
+	else if (game->IsKeyDown(DIK_A))
+		simon->SetState(SIMON_STATE_HIT);
 	else
 		simon->SetState(SIMON_STATE_IDLE);
 }
@@ -163,9 +171,9 @@ void LoadResources()
 
 	textures->Add(ID_TEX_FIRE, L"Castlevania\\123.png", D3DCOLOR_XRGB(255, 0, 255));
 
-
 	textures->Add(ID_TEX_WHIP, L"Castlevania\\WHIP.png", D3DCOLOR_XRGB(255, 0, 255));
 
+	textures->Add(ID_TEX_TILESET, L"Castlevania\\tileset.png", D3DCOLOR_XRGB(255, 0, 255));
 	
 
 	CSprites * sprites = CSprites::GetInstance();
@@ -180,12 +188,13 @@ void LoadResources()
 	sprites->Add(11002, 378, 0, 426, 64, texSimon);
 	sprites->Add(11003, 436, 0, 484, 64, texSimon);
 
-	sprites->Add(10020, 196, 0, 230, 64, texSimon); // nhảy phải
-
-
 	sprites->Add(10004, 120, 0, 168, 64, texSimon);		// đánh phải			
 	sprites->Add(10005, 60, 0, 108, 64, texSimon);
 	sprites->Add(10006, 0, 0, 64, 64, texSimon);
+
+	sprites->Add(10020, 196, 0, 230, 64, texSimon); // nhảy phải
+
+	sprites->Add(10018, 196, 17, 230, 64, texSimon); // ngồi phải
 
 	LPDIRECT3DTEXTURE9 texSimon2 = textures->Get(ID_TEX_SIMON_2);
 
@@ -202,6 +211,7 @@ void LoadResources()
 
 	sprites->Add(10021, 256, 0, 286, 64, texSimon2);//nhảy trái
 	
+	sprites->Add(10019, 254, 17, 286, 64, texSimon2); // ngồi trái
 
 	sprites->Add(10099, 180, 237, 240, 264, texSimon);		// chết 
 
@@ -271,12 +281,20 @@ void LoadResources()
 
 	ani = new CAnimation(100);//nhảy phải
 	ani->Add(10020);
-	animations->Add(406, ani);
+	animations->Add(404, ani);
 
 	ani = new CAnimation(100);//nhảy trái
 	ani->Add(10021);
-	animations->Add(407, ani);
+	animations->Add(405, ani);
 
+
+	ani = new CAnimation(100); //ngồi phải
+	ani->Add(10018);
+	animations->Add(406, ani);
+
+	ani = new CAnimation(100);//ngồi trái
+	ani->Add(10019);
+	animations->Add(407, ani);
 
 	ani = new CAnimation(100);//CHET
 	ani->Add(10099);
@@ -300,22 +318,21 @@ void LoadResources()
 	animations->Add(700, ani);
 
 	simon = new Simon();
-	simon->AddAnimation(400);
-	simon->AddAnimation(401);
-	simon->AddAnimation(400);		// idle right small
-	simon->AddAnimation(401);
+	simon->AddAnimation(400);// đứng phải
+	simon->AddAnimation(401); //đứng trái
 
 
-	simon->AddAnimation(500);
-	simon->AddAnimation(501);
-	simon->AddAnimation(500);		// walk right small
-	simon->AddAnimation(501);
+	simon->AddAnimation(500);//	đi phải
+	simon->AddAnimation(501);//	đi trái
+
 
 	simon->AddAnimation(402);	//đánh phải 
 	simon->AddAnimation(403);	//đánh trái
-	simon->AddAnimation(406);	//nhảy phải 
-	simon->AddAnimation(407);	//nhảy trái
+	simon->AddAnimation(404);	//nhảy phải 
+	simon->AddAnimation(405);	//nhảy trái
 
+	simon->AddAnimation(406);	//ngồi phải 
+	simon->AddAnimation(407);	//ngồi trái
 	simon->AddAnimation(599);
 
 	simon->SetPosition(150, 327);
@@ -351,13 +368,17 @@ void LoadResources()
 	bigfire5->AddAnimation(700);
 	bigfire5->SetPosition(1282, 350);
 	objects.push_back(bigfire5);
-}
+
+	LPDIRECT3DTEXTURE9 tileset1 = textures->Get(ID_TEX_TILESET);
+	//sprite = new CSprite(500000, 0, 0, 256, 64, tileset1);
+	map = new	Map (tileset1, 32, 32);
+	map->LoadMatrixMap("Castlevania\\Mapstate.txt");
+	//map->Draw(game->x_cam, game->y_cam);
+ }
 
 
 void Update(DWORD dt)
 {
-
-
 	vector<LPGAMEOBJECT> coObjects;
 	for (int i = 1; i < objects.size(); i++)
 	{
@@ -371,11 +392,12 @@ void Update(DWORD dt)
 
 	float x, y;
 	simon->GetPosition(x, y);
-	if (x > SCREEN_WIDTH / 2)
-	{
+	//if (x > SCREEN_WIDTH / 2)
+	//{
 		game->x_cam = x - SCREEN_WIDTH / 2;
 		game->y_cam = y - SCREEN_HEIGHT / 2;
-	}
+		map->Draw(game->x_cam, game->y_cam);
+	//}
 }
 
 

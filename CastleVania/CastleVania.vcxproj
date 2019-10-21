@@ -25,9 +25,11 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Map.cpp" />
     <ClCompile Include="Simon.cpp" />
     <ClCompile Include="Sprites.cpp" />
     <ClCompile Include="Textures.cpp" />
+    <ClCompile Include="Whip.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BigFire.h" />
@@ -35,9 +37,11 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Ground.h" />
+    <ClInclude Include="Map.h" />
     <ClInclude Include="Simon.h" />
     <ClInclude Include="Sprites.h" />
     <ClInclude Include="Textures.h" />
+    <ClInclude Include="Whip.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Castlevania\0.png" />
@@ -53,9 +57,13 @@
     <Image Include="Castlevania\Simon_right.png" />
     <Image Include="Castlevania\Simon_ver_editted.png" />
     <Image Include="Castlevania\stair_.png" />
+    <Image Include="Castlevania\tileset.png" />
     <Image Include="Castlevania\WHIP.png" />
     <Image Include="Castlevania\WHIP_left.png" />
     <Image Include="Castlevania\WHIP_VIP.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Castlevania\Mapstate.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

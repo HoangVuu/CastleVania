@@ -66,7 +66,12 @@ public:
 	LPD3DXSPRITE GetSpriteHandler() { return this->spriteHandler; }
 
 	static CGame * GetInstance();
-
+	static CGame * GetInstance(HWND _hWnd) {
+		if (__instance == NULL) __instance = new CGame(_hWnd);
+		return __instance;
+	}
+	CGame(){}
+	CGame(HWND _hWnd) { hWnd = _hWnd; }
 	~CGame();
 };
 

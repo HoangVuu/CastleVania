@@ -3,6 +3,7 @@
 
 #include "Simon.h"
 #include "Game.h"
+#include "BigFire.h"
 
 #define SCREEN_WIDTH 640
 #define SCREEN_HEIGHT 580
@@ -14,10 +15,11 @@
 #define SIMON_STATE_DIE				400
 #define SIMON_STATE_MOVE			500
 #define SIMON_STATE_HIT				600
+#define SIMON_STATE_SIT				700
+
 #define SIMON_DIE_DEFLECT_SPEED	 0.5f
 
-#define SIMON_ANI_HIT_RIGHT				4
-#define SIMON_ANI_HIT_LEFT				5
+
 #define SIMON_ANI_DIE				8
 
 #define SIMON_UNTOUCHABLE_TIME 5000
@@ -28,22 +30,25 @@
 #define SIMON_WALKING_SPEED		0.1f 
 #define SIMON_ANI_BIG_IDLE_RIGHT		0
 #define SIMON_ANI_BIG_IDLE_LEFT			1
-#define SIMON_ANI_SMALL_IDLE_RIGHT		2
-#define SIMON_ANI_SMALL_IDLE_LEFT			3
 
-#define SIMON_ANI_BIG_WALKING_RIGHT			4
-#define SIMON_ANI_BIG_WALKING_LEFT			5
-#define SIMON_ANI_SMALL_WALKING_RIGHT		6
-#define SIMON_ANI_SMALL_WALKING_LEFT		7
-#define SIMON_ANI_DIE						8
-#define SIMON_ANI_SIT_RIGHT				6
-#define SIMON_ANI_SIT_LEFT				7
-#define SIMON_ANI_JUMP_RIGHT			8
-#define SIMON_ANI_JUMP_LEFT				9
+#define SIMON_ANI_BIG_WALKING_RIGHT			2
+#define SIMON_ANI_BIG_WALKING_LEFT			3
+
+#define SIMON_ANI_HIT_RIGHT				4
+#define SIMON_ANI_HIT_LEFT				5
+
+#define SIMON_ANI_JUMP_RIGHT			6
+#define SIMON_ANI_JUMP_LEFT				7
+
+#define SIMON_ANI_SIT_RIGHT				8
+#define SIMON_ANI_SIT_LEFT				9
 #define SIMON_ANI_DIE					10
+
+
 
 #define	SIMON_LEVEL_SMALL	1
 #define	SIMON_LEVEL_BIG		2
+
 #define SIMON_BIG_BBOX_WIDTH  35
 #define SIMON_BIG_BBOX_HEIGHT 64
 
@@ -93,8 +98,14 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
 		y += min_ty * dy + ny * 0.4f;
 
-		if (nx != 0) vx = 0;
-		if (ny != 0) vy = 0;
+		if (nx != 0) {
+			vx = 0;
+			//isJump = false;
+		}
+		if (ny != 0) {
+			vy = 0;
+			isJump = false;
+		}
 	}
 
 	// clean up collision events
@@ -104,68 +115,117 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 void Simon::Render()
 {
 	int ani;
+
+	if (vy < 0 && state == SIMON_STATE_JUMP)
+	{
+
+		if (nx < 0)
+			ani = SIMON_ANI_JUMP_RIGHT;
+		ani = SIMON_ANI_JUMP_LEFT;
+	}
+
 	if (state == SIMON_STATE_DIE)
 		ani = SIMON_ANI_DIE;
 	else
 		if (level == SIMON_LEVEL_BIG)
-		{
-			if (vx == 0)
+		{// bawts may mess
+			if (vx == 0) // nge chua
 			{
-				if (nx > 0 && state != SIMON_STATE_HIT)
+				if (isSit&&isRight)
+					ani = SIMON_ANI_SIT_RIGHT;
+				else if (isSit&&isRight==false) 
+					ani = SIMON_ANI_SIT_LEFT;
+				else if (nx > 0 && state != SIMON_STATE_HIT) {
 					ani = SIMON_ANI_BIG_IDLE_RIGHT;
-				else if (nx < 0 && state != SIMON_STATE_HIT)
+					if (isJump)
+						ani = SIMON_ANI_JUMP_RIGHT;
+				}
+				else if (nx < 0 && state != SIMON_STATE_HIT) {
 					ani = SIMON_ANI_BIG_IDLE_LEFT;
-				else if (nx > 0 && state == SIMON_STATE_HIT)
+					if (isJump)
+						ani = SIMON_ANI_JUMP_LEFT;
+				}
+				else if (nx > 0 && state == SIMON_STATE_HIT) {
 					ani = SIMON_ANI_HIT_RIGHT;
-				else
+				}
+				else if (nx < 0 && state == SIMON_STATE_HIT) {
+					ani = SIMON_ANI_HIT_LEFT;
+				}
+				else if (nx > 0 && state == SIMON_STATE_SIT)
+					ani = SIMON_ANI_SIT_RIGHT;
+				else if (nx < 0 && state == SIMON_STATE_SIT)
+					ani = SIMON_ANI_SIT_LEFT;
+
+			}
+
+			else if (vx > 0 && !isJump)
+				ani = SIMON_ANI_BIG_WALKING_RIGHT;
+			else if (vx > 0 && isJump) {
+				ani = SIMON_ANI_JUMP_RIGHT;
+				if (isAttack)
+					ani = SIMON_ANI_HIT_RIGHT;
+			}
+			else if (vx < 0 && !isJump)
+				ani = SIMON_ANI_BIG_WALKING_LEFT;
+			else if (vx < 0 && isJump) {
+				ani = SIMON_ANI_JUMP_LEFT;
+				if (isAttack)
 					ani = SIMON_ANI_HIT_LEFT;
 			}
-			
-
-			else if (vx > 0)
-				ani = SIMON_ANI_SMALL_WALKING_RIGHT;
-			else ani = SIMON_ANI_SMALL_WALKING_LEFT;
 		}
+
+
 
 	int alpha = 255;
 	if (untouchable) alpha = 128;
-	animations[ani]->Render(x, y, alpha);
 
+	animations[ani]->Render(x, y, alpha);
 	RenderBoundingBox();
 }
 
-void Simon::SetState(int state)
-{
-	CGameObject::SetState(state);
-
-	switch (state)
+	void Simon::SetState(int state)
 	{
-	case SIMON_STATE_WALKING_RIGHT:
-		vx = SIMON_WALKING_SPEED;
-		nx = 1;
-		break;
-	case SIMON_STATE_WALKING_LEFT:
-		vx = -SIMON_WALKING_SPEED;
-		nx = -1;
-		break;
-	case SIMON_STATE_JUMP:
-		vy = -SIMON_JUMP_SPEED_Y;
-	case SIMON_STATE_IDLE:
-		vx = 0;
-		break;
-	case SIMON_STATE_DIE:
-		vy = -SIMON_DIE_DEFLECT_SPEED;
-		break;
-		/*case SIMON_STATE_MOVE:
+		CGameObject::SetState(state);
+		isSit=false;
+		switch (state)
+		{
+		case SIMON_STATE_WALKING_RIGHT:
 			vx = SIMON_WALKING_SPEED;
 			nx = 1;
-			break;*/
-	case SIMON_STATE_HIT:
-		vx = 0;
-		break;
+			break;
+		case SIMON_STATE_WALKING_LEFT:
+			vx = -SIMON_WALKING_SPEED;
+			nx = -1;
+			break;
+		case SIMON_STATE_JUMP: {
+			vy = -SIMON_JUMP_SPEED_Y;
+			isJump = true;
+		}
+		case SIMON_STATE_IDLE: {
+			vx = 0;
+			break;
+			isJump = true;
+			isAttack = true;
+		}
+		case SIMON_STATE_DIE:
+			vy = -SIMON_DIE_DEFLECT_SPEED;
+			isJump = false;
+			break;
+			/*case SIMON_STATE_MOVE:
+				vx = SIMON_WALKING_SPEED;
+				nx = 1;
+				break;*/
+		case SIMON_STATE_HIT :
+			vx = 0;
+			isJump = true;
+			isAttack = true;
+			break;
+		case SIMON_STATE_SIT :
+			vx = 0;
+			isSit = true;
+			break;
+		}
 	}
-}
-
 void Simon::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 {
 	left = x;

@@ -5,6 +5,9 @@
 #include "GameObject.h"
 #include "Sprites.h"
 
+#define WHIP_LV0_BBOX_WIDTH				100
+#define WHIP_LV0_BBOX_HEIGHT			15
+
 
 class Whip :public CGameObject
 {
