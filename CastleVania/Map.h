@@ -17,7 +17,7 @@ class Map
 private:
 	int ** matrix; // map data
 	int cols, rows; // cols and rows of our map
-	int tileWidth, tileHeight;// cai này là gì m
+	int tileWidth, tileHeight;
 
 	LPDIRECT3DTEXTURE9 tileSet; //
 

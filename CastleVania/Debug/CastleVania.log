@@ -1,4 +1,11 @@
-﻿  main.cpp
+﻿  Map.cpp
+  c:\program files (x86)\microsoft directx sdk (june 2010)\include\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+f:\môn học uit\nhập môn phát triển game\game\castlevania\castlevania\game.h(6): warning C4005: 'DIRECTINPUT_VERSION': macro redefinition
+  c:\program files (x86)\microsoft directx sdk (june 2010)\include\dinput.h(42): note: see previous definition of 'DIRECTINPUT_VERSION'
+f:\môn học uit\nhập môn phát triển game\game\castlevania\castlevania\map.cpp(106): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+f:\môn học uit\nhập môn phát triển game\game\castlevania\castlevania\map.cpp(108): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+f:\môn học uit\nhập môn phát triển game\game\castlevania\castlevania\map.cpp(122): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  main.cpp
   c:\program files (x86)\microsoft directx sdk (june 2010)\include\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
 f:\môn học uit\nhập môn phát triển game\game\castlevania\castlevania\game.h(6): warning C4005: 'DIRECTINPUT_VERSION': macro redefinition
   c:\program files (x86)\microsoft directx sdk (june 2010)\include\dinput.h(42): note: see previous definition of 'DIRECTINPUT_VERSION'
@@ -9,4 +16,5 @@ f:\môn học uit\nhập môn phát triển game\game\castlevania\castlevania\ma
 f:\môn học uit\nhập môn phát triển game\game\castlevania\castlevania\main.cpp(383): warning C4018: '<': signed/unsigned mismatch
 f:\môn học uit\nhập môn phát triển game\game\castlevania\castlevania\main.cpp(388): warning C4018: '<': signed/unsigned mismatch
 f:\môn học uit\nhập môn phát triển game\game\castlevania\castlevania\main.cpp(418): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
   CastleVania.vcxproj -> F:\Môn học UIT\Nhập môn Phát triển Game\Game\CastleVania\Debug\CastleVania.exe

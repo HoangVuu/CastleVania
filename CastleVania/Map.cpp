@@ -2,6 +2,7 @@
 #include "Textures.h"
 #include "Game.h"
 #include "Sprites.h"
+
 Map::Map()
 {
 	tileWidth = TILE_WIDTH;
