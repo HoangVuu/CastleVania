@@ -6,7 +6,7 @@
 #include "BigFire.h"
 
 #define SCREEN_WIDTH 640
-#define SCREEN_HEIGHT 580
+#define SCREEN_HEIGHT 480
 
 #define SIMON_STATE_IDLE			0
 #define SIMON_STATE_WALKING_RIGHT	100
@@ -28,11 +28,12 @@
 #define SIMON_GRAVITY			0.002f
 
 #define SIMON_WALKING_SPEED		0.1f 
+
 #define SIMON_ANI_BIG_IDLE_RIGHT		0
 #define SIMON_ANI_BIG_IDLE_LEFT			1
 
-#define SIMON_ANI_BIG_WALKING_RIGHT			2
-#define SIMON_ANI_BIG_WALKING_LEFT			3
+#define SIMON_ANI_BIG_WALKING_RIGHT		2
+#define SIMON_ANI_BIG_WALKING_LEFT		3
 
 #define SIMON_ANI_HIT_RIGHT				4
 #define SIMON_ANI_HIT_LEFT				5
@@ -42,9 +43,16 @@
 
 #define SIMON_ANI_SIT_RIGHT				8
 #define SIMON_ANI_SIT_LEFT				9
-#define SIMON_ANI_DIE					10
 
+#define SIMON_ANI_SIT_HIT_RIGHT			10
+#define SIMON_ANI_SIT_HIT_LEFT			11
 
+#define SIMON_ANI_DIE					12
+#define WHIP_HIT						13
+
+//roi
+#define WHIP_RIGHT 						0
+#define WHIP_LEFT						1
 
 #define	SIMON_LEVEL_SMALL	1
 #define	SIMON_LEVEL_BIG		2
@@ -107,7 +115,7 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			isJump = false;
 		}
 	}
-
+	whip->SetPosition(x, y);
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
@@ -128,12 +136,18 @@ void Simon::Render()
 		ani = SIMON_ANI_DIE;
 	else
 		if (level == SIMON_LEVEL_BIG)
-		{// bawts may mess
-			if (vx == 0) // nge chua
+		{
+			if (vx == 0) 
 			{
-				if (isSit&&isRight)
+				if (isSit&& nx > 0 && state == SIMON_STATE_HIT) {
+					ani = SIMON_ANI_SIT_HIT_RIGHT;
+					OutputDebugString(L"vao");
+				}
+				else if (isSit&& nx > 0)
 					ani = SIMON_ANI_SIT_RIGHT;
-				else if (isSit&&isRight==false) 
+				else if (isSit&& nx<0 && state== SIMON_STATE_HIT)
+						ani = SIMON_ANI_SIT_HIT_LEFT;
+				else if(isSit&& nx < 0)
 					ani = SIMON_ANI_SIT_LEFT;
 				else if (nx > 0 && state != SIMON_STATE_HIT) {
 					ani = SIMON_ANI_BIG_IDLE_RIGHT;
@@ -151,17 +165,16 @@ void Simon::Render()
 				else if (nx < 0 && state == SIMON_STATE_HIT) {
 					ani = SIMON_ANI_HIT_LEFT;
 				}
-				else if (nx > 0 && state == SIMON_STATE_SIT)
+				/*else if (nx > 0 && state == SIMON_STATE_SIT)
 					ani = SIMON_ANI_SIT_RIGHT;
 				else if (nx < 0 && state == SIMON_STATE_SIT)
-					ani = SIMON_ANI_SIT_LEFT;
+					ani = SIMON_ANI_SIT_LEFT;*/
 
 			}
-
 			else if (vx > 0 && !isJump)
 				ani = SIMON_ANI_BIG_WALKING_RIGHT;
 			else if (vx > 0 && isJump) {
-				ani = SIMON_ANI_JUMP_RIGHT;
+				ani = SIMON_ANI_JUMP_RIGHT;	
 				if (isAttack)
 					ani = SIMON_ANI_HIT_RIGHT;
 			}
@@ -175,47 +188,62 @@ void Simon::Render()
 		}
 
 
-
 	int alpha = 255;
 	if (untouchable) alpha = 128;
 
 	animations[ani]->Render(x, y, alpha);
+
+	//animations[ani]->ResetFrame();
+
+	if (isAttack) {
+		whip->animations[0]->Render(x, y, alpha);
+		isAttack = false;
+	}
+	if (ani == SIMON_ANI_HIT_LEFT || ani == SIMON_ANI_HIT_RIGHT || ani == SIMON_ANI_HIT_RIGHT || ani == SIMON_ANI_HIT_LEFT)
+	{
+		isAttack = false;
+
+	}
+	
 	RenderBoundingBox();
 }
 
 	void Simon::SetState(int state)
 	{
+		//isSit = false;
+		//isRight = true;
+
 		CGameObject::SetState(state);
-		isSit=false;
 		switch (state)
 		{
 		case SIMON_STATE_WALKING_RIGHT:
 			vx = SIMON_WALKING_SPEED;
 			nx = 1;
+			isSit = false;
 			break;
 		case SIMON_STATE_WALKING_LEFT:
 			vx = -SIMON_WALKING_SPEED;
 			nx = -1;
+			isSit = false;
 			break;
 		case SIMON_STATE_JUMP: {
+			if (isJump)return;
 			vy = -SIMON_JUMP_SPEED_Y;
 			isJump = true;
+			isSit = false;
+			//isAttack = false;
 		}
 		case SIMON_STATE_IDLE: {
 			vx = 0;
 			break;
-			isJump = true;
-			isAttack = true;
 		}
 		case SIMON_STATE_DIE:
 			vy = -SIMON_DIE_DEFLECT_SPEED;
 			isJump = false;
+			isSit = false;
 			break;
-			/*case SIMON_STATE_MOVE:
-				vx = SIMON_WALKING_SPEED;
-				nx = 1;
-				break;*/
 		case SIMON_STATE_HIT :
+			if (isAttack)return;
 			vx = 0;
 			isJump = true;
 			isAttack = true;
@@ -225,6 +253,10 @@ void Simon::Render()
 			isSit = true;
 			break;
 		}
+		if (vx > 0)
+			isRight = true;
+		else 
+			isRight = false;
 	}
 void Simon::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 {

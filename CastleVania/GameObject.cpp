@@ -1,7 +1,6 @@
 #include <d3dx9.h>
 #include <algorithm>
 
-
 #include "debug.h"
 #include "Game.h"
 #include "GameObject.h"
@@ -134,7 +133,6 @@ void CGameObject::AddAnimation(int aniId)
 	LPANIMATION ani = CAnimations::GetInstance()->Get(aniId);
 	animations.push_back(ani);
 }
-
 
 CGameObject::~CGameObject()
 {

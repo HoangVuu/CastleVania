@@ -66,9 +66,7 @@ void CAnimation::Render(float x, float y, int alpha)
 			lastFrameTime = now;
 			if (currentFrame == frames.size()) currentFrame = 0;
 		}
-
 	}
-
 	frames[currentFrame]->GetSprite()->Draw(x, y, alpha);
 }
 
@@ -88,4 +86,9 @@ void CAnimations::Add(int id, LPANIMATION ani)
 LPANIMATION CAnimations::Get(int id)
 {
 	return animations[id];
+}
+void CAnimation::ResetFrame()
+{
+	currentFrame = frames.size() - 1;
+	lastFrameTime = GetTickCount();
 }

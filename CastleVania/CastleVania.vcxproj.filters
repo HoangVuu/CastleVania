@@ -42,9 +42,6 @@
     <ClCompile Include="Textures.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Simon.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="BigFire.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -55,6 +52,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Map.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Simon.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
