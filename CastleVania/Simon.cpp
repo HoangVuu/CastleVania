@@ -188,7 +188,7 @@ void Simon::Render()
 		}
 
 
-	int alpha = 255;
+	int alpha = 255;	
 	if (untouchable) alpha = 128;
 
 	animations[ani]->Render(x, y, alpha);

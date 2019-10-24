@@ -127,17 +127,17 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 	switch (KeyCode)
 	{
 	case DIK_SPACE:
-			simon->SetState(SIMON_STATE_JUMP);
+		simon->SetState(SIMON_STATE_JUMP);
 		break;
 	case DIK_B: // reset
-		simon->SetState(SIMON_STATE_IDLE);	
+		simon->SetState(SIMON_STATE_IDLE);
 		/*simon->SetLevel(SIMON_LEVEL_BIG);*/
 		simon->SetPosition(50.0f, 0.0f);
 		simon->SetSpeed(0, 0);
 		break;
 	case DIK_A:
 		simon->SetState(SIMON_STATE_HIT);
-	break;
+		break;
 	}
 }
 
@@ -148,9 +148,9 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 bool first = false;
 void CSampleKeyHander::KeyState(BYTE *states)
 {
-		OutputDebugString(L"asdasd");
+	OutputDebugString(L"asdasd");
 	//DebugOut(L"tic", x2);
-	if (simon->GetState() == SIMON_STATE_DIE) 
+	if (simon->GetState() == SIMON_STATE_DIE)
 		return;
 	if (game->IsKeyDown(DIK_RIGHT))
 		simon->SetState(SIMON_STATE_WALKING_RIGHT);
@@ -159,7 +159,7 @@ void CSampleKeyHander::KeyState(BYTE *states)
 	else if (game->IsKeyDown(DIK_DOWN))
 		simon->SetState(SIMON_STATE_SIT);
 	else if (game->IsKeyDown(DIK_A))
-			simon->SetState(SIMON_STATE_HIT);
+		simon->SetState(SIMON_STATE_HIT);
 	else
 		simon->SetState(SIMON_STATE_IDLE);
 }
@@ -190,7 +190,7 @@ void LoadResources()
 	textures->Add(ID_TEX_SIMON_2, L"Castlevania\\Simon_ver_editted.png", D3DCOLOR_XRGB(255, 0, 255));
 
 	textures->Add(ID_TEX_LV1, L"Castlevania\\lv1.png", D3DCOLOR_XRGB(176, 224, 248));
-	
+
 	textures->Add(ID_TEX_BRICK, L"Castlevania\\BRICK1.png", D3DCOLOR_XRGB(3, 26, 110));
 
 	textures->Add(ID_TEX_FIRE, L"Castlevania\\123.png", D3DCOLOR_XRGB(255, 0, 255));
@@ -199,7 +199,7 @@ void LoadResources()
 	textures->Add(ID_TEX_WHIP_2, L"Castlevania\\WHIP_left.png", D3DCOLOR_XRGB(255, 0, 255));
 
 	textures->Add(ID_TEX_TILESET, L"Castlevania\\tileset.png", D3DCOLOR_XRGB(255, 0, 255));
-	
+
 
 	CSprites * sprites = CSprites::GetInstance();
 	CAnimations * animations = CAnimations::GetInstance();
@@ -239,7 +239,7 @@ void LoadResources()
 	sprites->Add(10016, 421, 0, 464, 64, texSimon2);
 
 	sprites->Add(10021, 256, 0, 286, 64, texSimon2);		//nhảy trái
-	
+
 	sprites->Add(10019, 254, 17, 286, 64, texSimon2);		//ngồi trái
 
 	sprites->Add(10031, 420, 67, 477, 130, texSimon2);		// ngồi đánh trái				
@@ -250,7 +250,7 @@ void LoadResources()
 	LPDIRECT3DTEXTURE9 whipR = textures->Get(ID_TEX_WHIP);
 	sprites->Add(10056, 570, 0, 553, 67, whipR);			//roi lv0 phải	
 	sprites->Add(10057, 346, 0, 312, 49, whipR);
-	sprites->Add(10058, 114, 0, 188, 30, whipR);	
+	sprites->Add(10058, 114, 0, 188, 30, whipR);
 
 	LPDIRECT3DTEXTURE9 whipL = textures->Get(ID_TEX_WHIP_2);
 	sprites->Add(10059, 110, 0, 166, 66, whipL);			//roi lv0 trái
@@ -345,13 +345,13 @@ void LoadResources()
 		ani->Add(10056);
 		ani->Add(10057);
 		ani->Add(10058);
-		animations->Add(408, ani);
+		animations->Add(602, ani);
 
 		ani = new CAnimation(150);//roi trái
 		ani->Add(10059);
 		ani->Add(10060);
 		ani->Add(10061);
-		animations->Add(409, ani);
+		animations->Add(603, ani);
 
 
 		ani = new CAnimation(100);//CHET
@@ -388,18 +388,18 @@ void LoadResources()
 
 		simon->AddAnimation(406);			//ngồi phải 
 		simon->AddAnimation(407);			//ngồi trái
-		
+
 		simon->AddAnimation(408);			//ngồi đánh phải
 		simon->AddAnimation(409);			//ngồi đánh trái
 
 		simon->AddAnimation(599);			//chết
 
-		simon->whip->AddAnimation(408);		//roi lv0 phải
-		simon->whip->AddAnimation(409);		//roi lv0 trái
-		
+		simon->whip->AddAnimation(602);		//roi lv0 phải
+		simon->whip->AddAnimation(603);		//roi lv0 trái
+
 	}
 	simon->SetPosition(150, 327);
-//	whip->AddAnimation(408);// roi
+	//	whip->AddAnimation(408);// roi
 	objects.push_back(simon);
 	for (int i = 0; i < 50; i++)
 	{
@@ -435,14 +435,15 @@ void LoadResources()
 
 	LPDIRECT3DTEXTURE9 tileset1 = textures->Get(ID_TEX_TILESET);
 	//sprite = new CSprite(500000, 0, 0, 256, 64, tileset1);
-	map = new	Map (tileset1, 32, 32);
+	map = new	Map(tileset1, 32, 32);
 	map->LoadMatrixMap("Castlevania\\Mapstate.txt");
 	//map->Draw(game->x_cam, game->y_cam);
- }
+}
 
 
 void Update(DWORD dt)
 {
+
 	vector<LPGAMEOBJECT> coObjects;
 	for (int i = 1; i < objects.size(); i++)
 	{
@@ -572,7 +573,7 @@ int Run()
 		if (dt >= tickPerFrame)
 		{
 			frameStart = now;
-		
+
 			game->ProcessKeyboard();
 
 			Update(dt);
@@ -591,7 +592,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	game = CGame::GetInstance();
 	game->Init(hWnd);
-	
+
 	keyHandler = new CSampleKeyHander();
 	game->InitKeyboard(keyHandler);
 
