@@ -213,9 +213,9 @@ void LoadResources()
 	sprites->Add(11002, 378, 0, 426, 64, texSimon);
 	sprites->Add(11003, 436, 0, 484, 64, texSimon);
 
-	sprites->Add(10004, 120, 0, 168, 64, texSimon);			//đánh phải			
-	sprites->Add(10005, 60, 0, 108, 64, texSimon);
-	sprites->Add(10006, 0, 0, 64, 64, texSimon);
+	sprites->Add(10004, 120, 0, 171, 66, texSimon);			//đánh phải			
+	sprites->Add(10005, 67, 0, 112, 66, texSimon);
+	sprites->Add(10006, 10, 0, 60, 66, texSimon);
 
 	sprites->Add(10020, 196, 0, 230, 64, texSimon);			//nhảy phải
 
@@ -234,9 +234,9 @@ void LoadResources()
 	sprites->Add(11012, 78, 0, 126, 64, texSimon2);
 	sprites->Add(11013, 12, 0, 60, 64, texSimon2);
 
-	sprites->Add(10014, 301, 0, 360, 64, texSimon2);		//đánh trái				
-	sprites->Add(10015, 361, 0, 404, 64, texSimon2);
-	sprites->Add(10016, 421, 0, 464, 64, texSimon2);
+	sprites->Add(10014, 304, 0, 360, 67, texSimon2);		//đánh trái				
+	sprites->Add(10015, 366, 0, 411, 67, texSimon2);
+	sprites->Add(10016, 415, 0, 469, 67, texSimon2);
 
 	sprites->Add(10021, 256, 0, 286, 64, texSimon2);		//nhảy trái
 
@@ -288,12 +288,14 @@ void LoadResources()
 		animations->Add(401, ani);
 
 		ani = new CAnimation(150);	//đánh phải
+	//	ani->Add(10001);
 		ani->Add(10004);
 		ani->Add(10005);
 		ani->Add(10006);
 		animations->Add(402, ani);
 
 		ani = new CAnimation(150);//đánh trái
+		//ani->Add(10011);
 		ani->Add(10014);
 		ani->Add(10015);
 		ani->Add(10016);

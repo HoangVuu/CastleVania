@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "GameObject.h"
 #include "Whip.h"
 #define	SIMON_LEVEL_SMALL	1
@@ -16,6 +16,9 @@ class Simon : public CGameObject
 	bool isSit;
 	bool isRight;
 	bool isAttack;
+	bool isCollideHorizontal;
+
+	DWORD attackTime;
 
 public:
 
@@ -33,6 +36,8 @@ public:
 		isAttack = false;
 	}
 
+	//xét va chạm của Simon
+	virtual void CalcPotentialCollisions(vector<LPGAMEOBJECT> *coObjects, vector<LPCOLLISIONEVENT> &coEvents);
 
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
 	virtual void Render();
