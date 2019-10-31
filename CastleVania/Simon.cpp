@@ -6,6 +6,7 @@
 #include "BigFire.h"
 #include "Ground.h"
 
+
 #define SCREEN_WIDTH 640
 #define SCREEN_HEIGHT 480
 
@@ -59,19 +60,19 @@
 #define	SIMON_LEVEL_SMALL	1
 #define	SIMON_LEVEL_BIG		2
 
-#define SIMON_BIG_BBOX_WIDTH  35
+#define SIMON_BIG_BBOX_WIDTH  48
 #define SIMON_BIG_BBOX_HEIGHT 64
 
 #define SIMON_STAND_BBOX_WIDTH			32
 #define SIMON_STAND_BBOX_HEIGHT			60
 
-#define SIMON_SMALL_BBOX_WIDTH  35
-#define SIMON_SMALL_BBOX_HEIGHT 64
+
 
 void Simon::CalcPotentialCollisions(
 	vector<LPGAMEOBJECT> *coObjects,
 	vector<LPCOLLISIONEVENT> &coEvents)
 {
+	
 	bool isCollideWithCheckBox = false;
 	for (UINT i = 0; i < coObjects->size(); i++)
 	{
@@ -95,6 +96,7 @@ void Simon::CalcPotentialCollisions(
 				delete e;
 		}
 	}
+	std::sort(coEvents.begin(), coEvents.end(), CCollisionEvent::compare);
 }
 
 void Simon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
@@ -105,9 +107,10 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	//nếu đang đánh thì không update sự kiện đánh lần nữa.
 	if (isAttack == true && GetTickCount() - attackTime >= 450) {
 		isAttack = false;
+		whip->Update(attackTime, coObjects);
 		vx = 0;
 	}
-
+	
 	// Simple fall down
 	vy += SIMON_GRAVITY * dt;
 
@@ -286,14 +289,7 @@ void Simon::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 	left = x;
 	top = y;
 
-	if (level == SIMON_LEVEL_BIG)
-	{
-		right = x + SIMON_BIG_BBOX_WIDTH;
-		bottom = y + SIMON_BIG_BBOX_HEIGHT;
-	}
-	else
-	{
-		right = x + SIMON_SMALL_BBOX_WIDTH;
-		bottom = y + SIMON_SMALL_BBOX_HEIGHT;
-	}
+	right = x + SIMON_BIG_BBOX_WIDTH;
+	bottom = y + SIMON_BIG_BBOX_HEIGHT;
 }
+	

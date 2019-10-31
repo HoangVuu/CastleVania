@@ -2,7 +2,7 @@
 #include "Simon.h"
 #include "Whip.h"
 #include "BigFire.h"
-
+#include "Effect.h"
 
 void Whip::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
@@ -16,22 +16,15 @@ void Whip::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			BigFire *bigfire = dynamic_cast<BigFire *>(coObjects->at(i));
 			float zl, zr, zt, zb;
 			bigfire->GetBoundingBox(zl, zt, zr, zb);
-			if (wl < zl && wr >(zl + zr) / 2 && wt > zt && wb < zb)
+			if (wr >zl&&wr< zr )
 			{
 				bigfire->isHitted = true;
+				OutputDebugString(L"cham ");
+				Effect *effect1 = new Effect(dt);
+				effect1->AddAnimation(807);
+				coObjects->push_back(effect1);
 			}
 		}
-		/*else if (dynamic_cast<Candle *>(coObjects->at(i)))
-		{
-			Candle *candle = dynamic_cast<Candle *>(coObjects->at(i));
-			float zl, zr, zt, zb;
-			candle->GetBoundingBox(zl, zt, zr, zb);
-			if (wl < zl && wr >(zl + zr) / 2 && wt > zt - 4 * SIMON_ONSTAIR_ERR_RANGE && wb < zb)
-			{
-
-				candle->isHitted = true;
-			}
-		}*/
 	}
 }
 
@@ -44,9 +37,9 @@ void Whip::GetBoundingBox(float & left, float & top, float & right, float & bott
 {
 	left = x;
 	top = y;
-		right = x + WHIP_LV0_BBOX_WIDTH;
-		bottom = y + WHIP_LV0_BBOX_HEIGHT;
-
+	right = x + WHIP_LV0_BBOX_WIDTH;
+	bottom = y + WHIP_LV0_BBOX_HEIGHT;
+	
 }
 
 Whip::~Whip()

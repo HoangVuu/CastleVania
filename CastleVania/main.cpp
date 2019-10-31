@@ -12,6 +12,9 @@
 #include "Simon.h"
 #include "Ground.h"	
 #include"BigFire.h"
+#include "Effect.h"
+
+
 
 
 #define SIMON_WALKING_SPEED				0.1f 
@@ -92,15 +95,19 @@
 #define ID_TEX_LV1		2
 #define ID_TEX_BRICK	3
 #define ID_TEX_FIRE		4
-#define ID_TEX_WHIP		5
-#define ID_TEX_WHIP_2	6
-#define ID_TEX_TILESET	7
+#define ID_TEX_ENEMIES	5
+#define ID_TEX_WHIP		6
+#define ID_TEX_WHIP_2	7
+#define ID_TEX_TILESET	8
+
 
 
 
 CGame *game;
 
 Simon * simon;
+
+Effect *whipEffect;
 
 Map *map;
 
@@ -148,7 +155,7 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 bool first = false;
 void CSampleKeyHander::KeyState(BYTE *states)
 {
-	OutputDebugString(L"asdasd");
+	
 	//DebugOut(L"tic", x2);
 	if (simon->GetState() == SIMON_STATE_DIE)
 		return;
@@ -193,9 +200,11 @@ void LoadResources()
 
 	textures->Add(ID_TEX_BRICK, L"Castlevania\\BRICK1.png", D3DCOLOR_XRGB(3, 26, 110));
 
-	textures->Add(ID_TEX_FIRE, L"Castlevania\\123.png", D3DCOLOR_XRGB(255, 0, 255));
+	textures->Add(ID_TEX_FIRE, L"Castlevania\\123.png", D3DCOLOR_XRGB(255, 255, 255));
 
-	textures->Add(ID_TEX_WHIP, L"Castlevania\\WHIP.png", D3DCOLOR_XRGB(255, 0, 255));
+	textures->Add(ID_TEX_ENEMIES, L"Castlevania\\Enemies.png", D3DCOLOR_XRGB(255, 0, 255));
+
+	textures->Add(ID_TEX_WHIP, L"Castlevania\\WHIP.png", D3DCOLOR_XRGB(255, 55, 255));
 	textures->Add(ID_TEX_WHIP_2, L"Castlevania\\WHIP_left.png", D3DCOLOR_XRGB(255, 0, 255));
 
 	textures->Add(ID_TEX_TILESET, L"Castlevania\\tileset.png", D3DCOLOR_XRGB(255, 0, 255));
@@ -276,6 +285,12 @@ void LoadResources()
 	sprites->Add(40011, 0, 0, 32, 64, texEnemy2);
 	sprites->Add(40012, 32, 0, 64, 64, texEnemy2);
 
+	LPDIRECT3DTEXTURE9 texMisc1 = textures->Get(ID_TEX_ENEMIES);
+	sprites->Add(40020, 405, 430, 430, 470, texMisc1); // sao
+
+	sprites->Add(40021, 440, 430, 460, 470, texMisc1);
+	sprites->Add(41021, 460, 430, 485, 470, texMisc1);
+	sprites->Add(42021, 488, 430, 513, 470, texMisc1);
 
 	LPANIMATION ani;
 	{
@@ -369,6 +384,16 @@ void LoadResources()
 		ani->Add(30002);
 		animations->Add(602, ani);
 		*/
+
+		ani = new CAnimation(150); //hieu ứng sao
+		ani->Add(40020);
+		//animations->Add(806, ani);
+		//ani = new CAnimation(50); //hieu ung tóe lửa
+		ani->Add(40021);
+		ani->Add(41021);
+		ani->Add(42021);
+		animations->Add(807, ani);
+
 	}
 	ani = new CAnimation(100);
 	ani->Add(40011);
@@ -398,6 +423,7 @@ void LoadResources()
 
 		simon->whip->AddAnimation(602);		//roi lv0 phải
 		simon->whip->AddAnimation(603);		//roi lv0 trái
+
 
 	}
 	simon->SetPosition(150, 327);
@@ -435,6 +461,7 @@ void LoadResources()
 	bigfire5->SetPosition(1282, 350);
 	objects.push_back(bigfire5);
 
+
 	LPDIRECT3DTEXTURE9 tileset1 = textures->Get(ID_TEX_TILESET);
 	//sprite = new CSprite(500000, 0, 0, 256, 64, tileset1);
 	map = new	Map(tileset1, 32, 32);
@@ -456,7 +483,7 @@ void Update(DWORD dt)
 	{
 		objects[i]->Update(dt, &coObjects);
 	}
-
+		
 	float x, y;
 	simon->GetPosition(x, y);
 
@@ -493,6 +520,7 @@ void Render()
 
 		for (int i = 0; i < objects.size(); i++)
 			objects[i]->Render();
+			objects[0]->Render();
 
 		spriteHandler->End();
 		d3ddv->EndScene();

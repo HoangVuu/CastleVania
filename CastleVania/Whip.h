@@ -5,14 +5,13 @@
 #include "GameObject.h"
 #include "Sprites.h"
 
-#define WHIP_LV0_BBOX_WIDTH				100
-#define WHIP_LV0_BBOX_HEIGHT			15
+#define WHIP_LV0_BBOX_WIDTH				74
+#define WHIP_LV0_BBOX_HEIGHT			30
 
 
 class Whip :public CGameObject
 {
 	int step = 0;
-
 public:
 	int level = 0;
 	Whip() :CGameObject()

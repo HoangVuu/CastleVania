@@ -57,6 +57,12 @@
     <ClCompile Include="Simon.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -87,6 +93,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Map.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -140,6 +152,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="Castlevania\tileset.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Castlevania\Enimes.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
