@@ -19,10 +19,7 @@ void Whip::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			if (wr >zl&&wr< zr )
 			{
 				bigfire->isHitted = true;
-				OutputDebugString(L"cham ");
-				Effect *effect1 = new Effect(dt);
-				effect1->AddAnimation(807);
-				coObjects->push_back(effect1);
+				bigfire->effect->firstRenderTime = GetTickCount();
 			}
 		}
 	}

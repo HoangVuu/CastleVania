@@ -3,7 +3,7 @@
 #include "Ground.h"
 #include "Candle.h"
 #include "BigFire.h"
-
+#include <algorithm>
 
 #define SIMON_GRAVITY					0.002f
 #define ITEM_WHIPITEM					808
@@ -35,7 +35,9 @@ public:
 	int type;
 	bool isEaten;
 	DWORD appearTime;
+	Item(){
 
+	}
 	void SetType(int _type) { type = _type; }
 	int GetType() { return type; }
 	void SetEaten() { isEaten = true; }

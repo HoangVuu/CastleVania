@@ -13,8 +13,7 @@
 #include "Ground.h"	
 #include"BigFire.h"
 #include "Effect.h"
-
-
+#include"Item.h"
 
 
 #define SIMON_WALKING_SPEED				0.1f 
@@ -54,21 +53,6 @@
 #define SIMON_ANI_DIE					12
 #define WHIP_HIT						13
 
-//#define SIMON_ANI_BIG_IDLE_RIGHT		0
-//#define SIMON_ANI_BIG_IDLE_LEFT			1
-//#define SIMON_ANI_HIT_RIGHT				2
-//#define SIMON_ANI_HIT_LEFT				3
-//#define SIMON_ANI_BIG_WALKING_RIGHT		4
-//#define SIMON_ANI_BIG_WALKING_LEFT		5
-//#define SIMON_ANI_SIT_RIGHT				6
-//#define SIMON_ANI_SIT_LEFT				7
-//#define SIMON_ANI_JUMP_RIGHT			8
-//#define SIMON_ANI_JUMP_LEFT				9
-//#define SIMON_ANI_SIT_HIT_RIGHT			10
-//#define SIMON_ANI_SIT_HIT_LEFT			11
-//#define SIMON_ANI_DIE					12
-
-
 #define	SIMON_LEVEL_SMALL	1
 #define	SIMON_LEVEL_BIG		2
 
@@ -99,6 +83,24 @@
 #define ID_TEX_WHIP		6
 #define ID_TEX_WHIP_2	7
 #define ID_TEX_TILESET	8
+#define ID_TEX_HEART	9
+
+// Heart
+#define HEART_BBOX_WIDTH				16
+#define HEART_BBOX_HEIGHT				16
+
+// Whip item
+#define WHIPITEM_BBOX_WIDTH				32
+#define WHIPITEM_BBOX_HEIGHT			32
+
+// Knife
+#define KNIFE_BBOX_WIDTH				32
+#define KNIFE_BBOX_HEIGHT				18
+
+// Item
+#define ITEM_WHIPITEM					808
+#define ITEM_HEART						805
+#define ITEM_KNIFE						4433
 
 
 
@@ -115,6 +117,7 @@ CSprite *sprite;
 
 Whip *whip;
 
+Item *item;
 DWORD x1;
 DWORD x2;
 vector<LPGAMEOBJECT> objects;
@@ -206,6 +209,7 @@ void LoadResources()
 
 	textures->Add(ID_TEX_WHIP, L"Castlevania\\WHIP.png", D3DCOLOR_XRGB(255, 55, 255));
 	textures->Add(ID_TEX_WHIP_2, L"Castlevania\\WHIP_left.png", D3DCOLOR_XRGB(255, 0, 255));
+	textures->Add(ID_TEX_HEART, L"Castlevania\\BIG_HEART.png", D3DCOLOR_XRGB(255, 0, 255));
 
 	textures->Add(ID_TEX_TILESET, L"Castlevania\\tileset.png", D3DCOLOR_XRGB(255, 0, 255));
 
@@ -287,10 +291,12 @@ void LoadResources()
 
 	LPDIRECT3DTEXTURE9 texMisc1 = textures->Get(ID_TEX_ENEMIES);
 	sprites->Add(40020, 405, 430, 430, 470, texMisc1); // sao
-
 	sprites->Add(40021, 440, 430, 460, 470, texMisc1);
 	sprites->Add(41021, 460, 430, 485, 470, texMisc1);
 	sprites->Add(42021, 488, 430, 513, 470, texMisc1);
+
+	LPDIRECT3DTEXTURE9 texMisc2 = textures->Get(ID_TEX_HEART);
+	sprites->Add(50001, 0, 0, 24, 20, texMisc2);
 
 	LPANIMATION ani;
 	{
@@ -384,6 +390,9 @@ void LoadResources()
 		ani->Add(30002);
 		animations->Add(602, ani);
 		*/
+		ani = new CAnimation(100);//tim
+		ani->Add(50001);
+		animations->Add(702, ani);
 
 		ani = new CAnimation(150); //hieu ứng sao
 		ani->Add(40020);
@@ -461,6 +470,11 @@ void LoadResources()
 	bigfire5->SetPosition(1282, 350);
 	objects.push_back(bigfire5);
 
+	/*item = new Item();
+	item->AddAnimation(702);
+	item->SetPosition(350+100,350);
+	item->SetType(805);
+	objects.push_back(item);*/
 
 	LPDIRECT3DTEXTURE9 tileset1 = textures->Get(ID_TEX_TILESET);
 	//sprite = new CSprite(500000, 0, 0, 256, 64, tileset1);
@@ -483,7 +497,7 @@ void Update(DWORD dt)
 	{
 		objects[i]->Update(dt, &coObjects);
 	}
-		
+	
 	float x, y;
 	simon->GetPosition(x, y);
 

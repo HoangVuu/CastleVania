@@ -1,5 +1,4 @@
 #include "Item.h"
-#include <algorithm>
 
 void Item::CalcPotentialCollisions(vector<LPGAMEOBJECT>* coObjects, vector<LPCOLLISIONEVENT>& coEvents)
 {

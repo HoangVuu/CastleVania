@@ -11,9 +11,9 @@
 
 class Whip :public CGameObject
 {
-	int step = 0;
+	//int step = 0;
 public:
-	int level = 0;
+
 	Whip() :CGameObject()
 	{
 

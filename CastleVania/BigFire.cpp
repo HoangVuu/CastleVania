@@ -4,6 +4,23 @@ void BigFire::Render()
 {
 	if (!isHitted)
 		animations[0]->Render(x, y, 255);
+	else if (isHitted && !effect->isExposed)
+		effect->animations[0]->Render(x, y, 255);
+}
+
+void  BigFire::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
+{
+	if (isHitted)
+	{
+		effect->Update(dt, coObjects);
+		if (!isFirst) {
+			item = new Item();
+			item->AddAnimation(702);
+			item->SetPosition(this->dx, this->dy);
+			item->SetType(805);
+			isFirst = true;
+		}
+	}
 }
 
 void BigFire::SetHit()

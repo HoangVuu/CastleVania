@@ -1,19 +1,39 @@
-﻿  main.cpp
+﻿  BigFire.cpp
   c:\program files (x86)\microsoft directx sdk (june 2010)\include\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
 f:\môn học uit\nhập môn phát triển game\game\castlevania\castlevania\game.h(6): warning C4005: 'DIRECTINPUT_VERSION': macro redefinition
   c:\program files (x86)\microsoft directx sdk (june 2010)\include\dinput.h(42): note: see previous definition of 'DIRECTINPUT_VERSION'
-f:\môn học uit\nhập môn phát triển game\game\castlevania\castlevania\main.cpp(477): warning C4018: '<': signed/unsigned mismatch
-f:\môn học uit\nhập môn phát triển game\game\castlevania\castlevania\main.cpp(482): warning C4018: '<': signed/unsigned mismatch
-f:\môn học uit\nhập môn phát triển game\game\castlevania\castlevania\main.cpp(521): warning C4018: '<': signed/unsigned mismatch
+f:\môn học uit\nhập môn phát triển game\game\castlevania\castlevania\bigfire.h(7): warning C4005: 'BIGFIRE_BBOX_HEIGHT': macro redefinition
+  f:\môn học uit\nhập môn phát triển game\game\castlevania\castlevania\item.h(15): note: see previous definition of 'BIGFIRE_BBOX_HEIGHT'
+  Item.cpp
+  c:\program files (x86)\microsoft directx sdk (june 2010)\include\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+f:\môn học uit\nhập môn phát triển game\game\castlevania\castlevania\game.h(6): warning C4005: 'DIRECTINPUT_VERSION': macro redefinition
+  c:\program files (x86)\microsoft directx sdk (june 2010)\include\dinput.h(42): note: see previous definition of 'DIRECTINPUT_VERSION'
+f:\môn học uit\nhập môn phát triển game\game\castlevania\castlevania\bigfire.h(12): error C2143: syntax error: missing ';' before '*'
+f:\môn học uit\nhập môn phát triển game\game\castlevania\castlevania\bigfire.h(12): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+f:\môn học uit\nhập môn phát triển game\game\castlevania\castlevania\bigfire.h(12): error C2238: unexpected token(s) preceding ';'
+f:\môn học uit\nhập môn phát triển game\game\castlevania\castlevania\item.h(15): warning C4005: 'BIGFIRE_BBOX_HEIGHT': macro redefinition
+  f:\môn học uit\nhập môn phát triển game\game\castlevania\castlevania\bigfire.h(7): note: see previous definition of 'BIGFIRE_BBOX_HEIGHT'
   Simon.cpp
   c:\program files (x86)\microsoft directx sdk (june 2010)\include\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
 f:\môn học uit\nhập môn phát triển game\game\castlevania\castlevania\game.h(6): warning C4005: 'DIRECTINPUT_VERSION': macro redefinition
   c:\program files (x86)\microsoft directx sdk (june 2010)\include\dinput.h(42): note: see previous definition of 'DIRECTINPUT_VERSION'
+f:\môn học uit\nhập môn phát triển game\game\castlevania\castlevania\bigfire.h(7): warning C4005: 'BIGFIRE_BBOX_HEIGHT': macro redefinition
+  f:\môn học uit\nhập môn phát triển game\game\castlevania\castlevania\item.h(15): note: see previous definition of 'BIGFIRE_BBOX_HEIGHT'
 f:\môn học uit\nhập môn phát triển game\game\castlevania\castlevania\simon.cpp(53): warning C4005: 'SIMON_ANI_DIE': macro redefinition
   f:\môn học uit\nhập môn phát triển game\game\castlevania\castlevania\simon.cpp(26): note: see previous definition of 'SIMON_ANI_DIE'
   Whip.cpp
   c:\program files (x86)\microsoft directx sdk (june 2010)\include\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
 f:\môn học uit\nhập môn phát triển game\game\castlevania\castlevania\game.h(6): warning C4005: 'DIRECTINPUT_VERSION': macro redefinition
   c:\program files (x86)\microsoft directx sdk (june 2010)\include\dinput.h(42): note: see previous definition of 'DIRECTINPUT_VERSION'
+f:\môn học uit\nhập môn phát triển game\game\castlevania\castlevania\bigfire.h(7): warning C4005: 'BIGFIRE_BBOX_HEIGHT': macro redefinition
+  f:\môn học uit\nhập môn phát triển game\game\castlevania\castlevania\item.h(15): note: see previous definition of 'BIGFIRE_BBOX_HEIGHT'
+  main.cpp
+  c:\program files (x86)\microsoft directx sdk (june 2010)\include\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+f:\môn học uit\nhập môn phát triển game\game\castlevania\castlevania\game.h(6): warning C4005: 'DIRECTINPUT_VERSION': macro redefinition
+  c:\program files (x86)\microsoft directx sdk (june 2010)\include\dinput.h(42): note: see previous definition of 'DIRECTINPUT_VERSION'
+f:\môn học uit\nhập môn phát triển game\game\castlevania\castlevania\bigfire.h(7): warning C4005: 'BIGFIRE_BBOX_HEIGHT': macro redefinition
+  f:\môn học uit\nhập môn phát triển game\game\castlevania\castlevania\item.h(15): note: see previous definition of 'BIGFIRE_BBOX_HEIGHT'
+f:\môn học uit\nhập môn phát triển game\game\castlevania\castlevania\main.cpp(491): warning C4018: '<': signed/unsigned mismatch
+f:\môn học uit\nhập môn phát triển game\game\castlevania\castlevania\main.cpp(496): warning C4018: '<': signed/unsigned mismatch
+f:\môn học uit\nhập môn phát triển game\game\castlevania\castlevania\main.cpp(535): warning C4018: '<': signed/unsigned mismatch
   Generating Code...
-  CastleVania.vcxproj -> F:\Môn học UIT\Nhập môn Phát triển Game\Game\CastleVania\Debug\CastleVania.exe

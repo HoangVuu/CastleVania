@@ -45,7 +45,7 @@ public:
 	void SetPosition(float x, float y) {
 		this->x = x;
 		this->y = y;
-		whip->SetPosition(x, y);
+		whip->SetPosition(x+10, y+10);
 	}
 	void SetState(int state);
 	void SetLevel(int l) { level = l; }
